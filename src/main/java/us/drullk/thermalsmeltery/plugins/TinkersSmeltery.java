@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.common.plugins.tcon.smeltery;
+package us.drullk.thermalsmeltery.plugins;
 
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
@@ -13,8 +13,8 @@ import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import us.drullk.thermalsmeltery.ThermalSmeltery;
-import us.drullk.thermalsmeltery.common.config.TSmeltConfig;
-import us.drullk.thermalsmeltery.common.lib.LibMisc;
+import us.drullk.thermalsmeltery.config.TSmeltConfig;
+import us.drullk.thermalsmeltery.lib.LibMisc;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -22,10 +22,10 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(LibMisc.MOD_ID)
 @Pulse(id = "TSmelt TCon Smeltery", description = "Tinkers Construct's Smeltery Integration", modsRequired = "TConstruct")
-public class TConSmeltery {
-	public static String CASTING_BASIN = "castingTable";
-	public static String SMELTERY_BRICK = "smelteryBrick";
-	public static String TOOL_FORGE = "toolForge";
+public class TinkersSmeltery {
+	public static final String CASTING_BASIN = "castingTable";
+	public static final String SMELTERY_BRICK = "smelteryBrick";
+	public static final String TOOL_FORGE = "toolForge";
 
 	@Handler
 	public void init(FMLInitializationEvent event) {

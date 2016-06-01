@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.common.plugins.eio.smeltery;
+package us.drullk.thermalsmeltery.plugins;
 
 import mantle.blocks.BlockUtils;
 import mantle.pulsar.pulse.Handler;
@@ -19,7 +19,9 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
 import us.drullk.thermalsmeltery.ThermalSmeltery;
-import us.drullk.thermalsmeltery.common.config.TSmeltConfig;
+import us.drullk.thermalsmeltery.config.TSmeltConfig;
+import us.drullk.thermalsmeltery.items.FilledBucket;
+import us.drullk.thermalsmeltery.lib.FluidHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;

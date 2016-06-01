@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.common.plugins.te;
+package us.drullk.thermalsmeltery.lib;
 
 import java.util.ArrayList;
 import java.util.Arrays;

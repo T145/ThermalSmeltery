@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.common.plugins.te;
+package us.drullk.thermalsmeltery.lib;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

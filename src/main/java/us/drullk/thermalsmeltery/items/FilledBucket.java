@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.common.plugins.eio.smeltery;
+package us.drullk.thermalsmeltery.items;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidFinite;
 import us.drullk.thermalsmeltery.ThermalSmeltery;
+import us.drullk.thermalsmeltery.plugins.EnderIOSmeltery;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

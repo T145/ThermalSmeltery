@@ -6,11 +6,11 @@ import mantle.pulsar.control.PulseManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import us.drullk.thermalsmeltery.common.config.TSmeltConfig;
-import us.drullk.thermalsmeltery.common.lib.LibMisc;
-import us.drullk.thermalsmeltery.common.plugins.eio.smeltery.EnderIOSmeltery;
-import us.drullk.thermalsmeltery.common.plugins.tcon.smeltery.TConSmeltery;
-import us.drullk.thermalsmeltery.common.plugins.te.TSmeltTE;
+import us.drullk.thermalsmeltery.config.TSmeltConfig;
+import us.drullk.thermalsmeltery.lib.LibMisc;
+import us.drullk.thermalsmeltery.plugins.EnderIOSmeltery;
+import us.drullk.thermalsmeltery.plugins.TinkersSmeltery;
+import us.drullk.thermalsmeltery.plugins.ThermalExpansionSmeltery;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -32,8 +32,8 @@ public class ThermalSmeltery
 	{
 		TSmeltConfig.initProps(event.getModConfigurationDirectory());
 
-		pulsar.registerPulse(new TSmeltTE());
-		pulsar.registerPulse(new TConSmeltery());
+		pulsar.registerPulse(new ThermalExpansionSmeltery());
+		pulsar.registerPulse(new TinkersSmeltery());
 		pulsar.registerPulse(new EnderIOSmeltery());
 
 		pulsar.preInit(event);

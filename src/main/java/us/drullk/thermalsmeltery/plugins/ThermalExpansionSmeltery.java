@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.common.plugins.te;
+package us.drullk.thermalsmeltery.plugins;
 
 import java.util.Map;
 
@@ -10,18 +10,19 @@ import net.minecraftforge.fluids.FluidStack;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.LiquidCasting;
-import us.drullk.thermalsmeltery.common.config.TSmeltConfig;
-import us.drullk.thermalsmeltery.common.lib.LibMisc;
-import us.drullk.thermalsmeltery.common.network.PacketThermalSmeltery;
+import us.drullk.thermalsmeltery.config.TSmeltConfig;
+import us.drullk.thermalsmeltery.lib.LibMisc;
+import us.drullk.thermalsmeltery.lib.MachineRecipeRegistry;
+import us.drullk.thermalsmeltery.lib.TE4Helper;
+import us.drullk.thermalsmeltery.network.PacketThermalSmeltery;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(LibMisc.MOD_ID)
 @Pulse(id = "TSmelt TE", description = "Thermal Expansion Integration", modsRequired = "ThermalExpansion")
-public class TSmeltTE
+public class ThermalExpansionSmeltery
 {
-	//public static final GuiHandler guiHandler = new GuiHandler();
 	ItemStack nullifier;
 
 	@Handler
@@ -31,10 +32,7 @@ public class TSmeltTE
 	}
 
 	@Handler
-	public void init(FMLInitializationEvent event)
-	{
-		//NetworkRegistry.INSTANCE.registerGuiHandler(ThermalSmeltery.instance, new GuiHandler());
-	}
+	public void init(FMLInitializationEvent event) {}
 
 	@Handler
 	public void postInit(FMLPostInitializationEvent event)

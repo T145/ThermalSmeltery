@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.common.lib;
+package us.drullk.thermalsmeltery.lib;
 
 public class LibMisc
 {
