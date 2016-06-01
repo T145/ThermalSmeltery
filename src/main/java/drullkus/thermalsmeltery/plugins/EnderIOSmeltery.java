@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.plugins;
+package drullkus.thermalsmeltery.plugins;
 
 import mantle.blocks.BlockUtils;
 import mantle.pulsar.pulse.Handler;
@@ -18,14 +18,14 @@ import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
-import us.drullk.thermalsmeltery.ThermalSmeltery;
-import us.drullk.thermalsmeltery.config.TSmeltConfig;
-import us.drullk.thermalsmeltery.items.FilledBucket;
-import us.drullk.thermalsmeltery.lib.FluidHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import drullkus.thermalsmeltery.ThermalSmeltery;
+import drullkus.thermalsmeltery.config.TSmeltConfig;
+import drullkus.thermalsmeltery.items.FilledBucket;
+import drullkus.thermalsmeltery.lib.FluidHelper;
 
 @Pulse(id = "TSmelt EIO Smeltery", description = "TCon Smeltery Integration for EnderIO", modsRequired = "TConstruct;EnderIO")
 public class EnderIOSmeltery {

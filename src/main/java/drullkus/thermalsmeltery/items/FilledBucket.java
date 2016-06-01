@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.items;
+package drullkus.thermalsmeltery.items;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidFinite;
-import us.drullk.thermalsmeltery.ThermalSmeltery;
-import us.drullk.thermalsmeltery.plugins.EnderIOSmeltery;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import drullkus.thermalsmeltery.ThermalSmeltery;
+import drullkus.thermalsmeltery.plugins.EnderIOSmeltery;
 
 public class FilledBucket extends ItemBucket {
 	public static final String[] materialNames = new String[] { "EnergeticAlloy", "PhasedGold", "ConductiveIron", "PhasedIron", "DarkSteel" };

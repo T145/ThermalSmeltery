@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.plugins;
+package drullkus.thermalsmeltery.plugins;
 
 import java.util.Map;
 
@@ -10,11 +10,11 @@ import net.minecraftforge.fluids.FluidStack;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.LiquidCasting;
-import us.drullk.thermalsmeltery.config.TSmeltConfig;
-import us.drullk.thermalsmeltery.lib.MachineRecipeRegistry;
-import us.drullk.thermalsmeltery.lib.TE4Helper;
-import us.drullk.thermalsmeltery.network.PacketThermalSmeltery;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import drullkus.thermalsmeltery.config.TSmeltConfig;
+import drullkus.thermalsmeltery.lib.MachineRecipeRegistry;
+import drullkus.thermalsmeltery.lib.TE4Helper;
+import drullkus.thermalsmeltery.network.PacketThermalSmeltery;
 
 @Pulse(id = "TSmelt TE", description = "Thermal Expansion Integration", modsRequired = "ThermalExpansion")
 public class ThermalExpansionSmeltery {

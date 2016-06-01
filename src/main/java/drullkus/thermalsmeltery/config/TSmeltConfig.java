@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.config;
+package drullkus.thermalsmeltery.config;
 
 import java.io.File;
 

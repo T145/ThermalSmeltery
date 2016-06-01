@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.network;
+package drullkus.thermalsmeltery.network;
 
 import java.io.IOException;
 

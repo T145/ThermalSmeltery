@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery.plugins;
+package drullkus.thermalsmeltery.plugins;
 
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
@@ -12,10 +12,10 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
-import us.drullk.thermalsmeltery.ThermalSmeltery;
-import us.drullk.thermalsmeltery.config.TSmeltConfig;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import drullkus.thermalsmeltery.ThermalSmeltery;
+import drullkus.thermalsmeltery.config.TSmeltConfig;
 
 @Pulse(id = "TSmelt TCon Smeltery", description = "Tinkers Construct's Smeltery Integration", modsRequired = "TConstruct")
 public class TinkersSmeltery {

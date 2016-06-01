@@ -1,4 +1,4 @@
-package us.drullk.thermalsmeltery;
+package drullkus.thermalsmeltery;
 
 import mantle.pulsar.config.ForgeCFG;
 import mantle.pulsar.control.PulseManager;
@@ -6,16 +6,16 @@ import mantle.pulsar.control.PulseManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import us.drullk.thermalsmeltery.config.TSmeltConfig;
-import us.drullk.thermalsmeltery.plugins.EnderIOSmeltery;
-import us.drullk.thermalsmeltery.plugins.ThermalExpansionSmeltery;
-import us.drullk.thermalsmeltery.plugins.TinkersSmeltery;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import drullkus.thermalsmeltery.config.TSmeltConfig;
+import drullkus.thermalsmeltery.plugins.EnderIOSmeltery;
+import drullkus.thermalsmeltery.plugins.ThermalExpansionSmeltery;
+import drullkus.thermalsmeltery.plugins.TinkersSmeltery;
 
 @Mod(modid = ThermalSmeltery.MODID, name = ThermalSmeltery.NAME, dependencies = ThermalSmeltery.DEPENDENCIES)
 public class ThermalSmeltery {
