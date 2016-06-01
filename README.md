@@ -1,44 +1,43 @@
-# ThermalSmeltery
-This is a very short mod that adds the capability to melt metals in the Thermal Expansion Crucible into Tinker's Construct Metals.
+# ForgeWorkspace
+A custom workspace for MinecraftForge
 
-This mod dynamically adapts every TiCon Smeltery recipe to the Magma Crucible. In theory it should add recipes from mods adding TiCon Smeltery Recipe as well, including ExtraTCon.
+---
+**_Table of Contents_**
 
-[![Build Status](http://ci.tterrag.com/job/ThermalSmeltery/badge/icon)](http://ci.tterrag.com/job/ThermalSmeltery/)
+1. [Dependencies](https://github.com/T145/forgedev#dependencies)
+2. [Workspace Setup](https://github.com/T145/forgedev#workspace-setup)
+3. [Development](https://github.com/T145/forgedev#development)
+4. [Contributing](https://github.com/T145/forgedev#contributing)
 
-##[Downloads](http://minecraft.curseforge.com/mc-mods/227661-thermal-smeltery/files)
-Downloads are at [CurseForge](http://minecraft.curseforge.com/mc-mods/227661-thermal-smeltery/files).
+---
 
-[http://minecraft.curseforge.com/mc-mods/227661-thermal-smeltery/files](http://minecraft.curseforge.com/mc-mods/227661-thermal-smeltery/files)
+## Dependencies
+In order to get started with Minecraft mod development in this workspace, a few prerequisites are required:
 
+1. [Git](https://git-scm.com/downloads)
+2. [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (JDK)
+3. *(Optional)* [Gradle](http://gradle.org/gradle-download/)
 
-##Modpacks
+Each of the listed requirements contains a hyperlink that should take you directly to the correspondant download page. Just download and install what is compatible with your OS. The reason Gradle is optional is because this workspace includes a Gradle wrapper, so when executing commands that begin with `gradle`, such a prefix can be replaced with `gradlew` and function normally.
 
-I'm totally cool with you adding the mod to Modpacks. You don't really need to tell me about it but feel free to PM me about it on the MCF anyway... :D
+---
 
-##ETA On Updates
-[Hofstadter's law](https://en.wikipedia.org/wiki/Hofstadter%27s_law) applies itself.
+## Workspace Setup
+To begin coding, start by executing the following command:
+```
+gradle setupWorkspace eclipse
+```
+It may take a while to complete, depending on your internet connection and the processing power of your machine. On average it takes about 10 minutes for most people. Again, if you don't have Gradle installed, then just replace the `gradle` in that command with `gradlew`. Once it completes, just open up the generated `eclipse` directory in your IDE of choice. If you're using IntelliJ's IDEA, there should be an Eclipse plugin that's automatically installed with it from version 13 and on for compatibility.
 
-##Issue Reporting
+---
 
-Please include the following:
+## Development
 
-* Minecraft version
-* Thermal Smeltery version
-* Forge version/build
-* Versions of any mods potentially related to the issue
-* Any relevant screenshots are greatly appreciated.
-* For crashes:
-* Steps to reproduce
-* ForgeModLoader-client-0.log (the FML log) from the root folder of the client
+To edit how this workspace functions for your own purposes, the only files you should be interacting with are [custom.gradle](https://github.com/T145/ForgeWorkspace/blob/1.7.10/custom.gradle), [gradle.properties](https://github.com/T145/ForgeWorkspace/blob/1.7.10/gradle.properties), and [settings.gradle](https://github.com/T145/ForgeWorkspace/blob/1.7.10/settings.gradle). The custom.gradle is where all of your normal build.gradle edits would go. In it is an example of a command you would run to interact with it properly. The benefit to keeping the build.gradle and custom.gradle separate is that it allows an extra degree of organization, and can help prevent workspace conflicts. The gradle.properties file is where all of the basic workspace information is set, such as the project name and which Forge version to use. Check it and edit it to your specifications before building. Once both of those are in order you'll be all set to be begin programming! The settings.gradle gives advanced Gradle users more project control. You can learn more about it at the link provided in the file.
 
+---
 
-##Development Setup
+## Contributing
+This project is made specifically for the community and mainstream use! If you see something wrong with it or want to add a new feature then please fork it and make a contribution. If this actually helps you out, then tell your friends!
 
-1. Fork/Clone and run `gradlew [setupDevWorkspace|setupDecompWorkspace] [eclipse|idea]`. This process will automatically download all the dependencies and set them up in your workspace.
-2. Open in IDE of your choice.
-3. Add `-Dfml.coreMods.load=cofh.asm.LoadingPlugin` to your launch options.
-
-
-##Special Thanks
-* Matthewprenger and tterrag for helping me with my git and gradle derps.
-* Demoxin for helping out tremendously with the Magma Crucible recipes
+Enjoy!

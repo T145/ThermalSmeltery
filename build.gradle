@@ -1,265 +1,145 @@
+import de.undercouch.gradle.tasks.download.*
+import org.ajoberstar.grgit.*
+
 buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
-        /*maven {
-            name = "CurseForge"
-            url = "https://minecraft.curseforge.com/api/" + project.curseforge_key
-        }*/
-    }
-
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-        classpath 'org.ajoberstar:gradle-git:0.10.1'
-
-        //compile "cofhcore:CoFHCore-[1.7.10]3.1.0B1-322:latest:dev"
-    }
+	repositories {
+		mavenCentral()
+		
+		maven {
+			name 'forge'
+			url 'http://files.minecraftforge.net/maven'
+		}
+		
+		maven {
+			name 'sonatype'
+			url 'https://oss.sonatype.org/content/repositories/snapshots/'
+		}
+		
+		maven {
+			url 'https://plugins.gradle.org/m2/'
+		}
+	}
+	
+	dependencies {
+		classpath 'de.undercouch:gradle-download-task:2.1.0'
+		classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+		classpath 'org.ajoberstar:grgit:1.4.1'
+	}
 }
 
-plugins {
-    id 'com.matthewprenger.cursegradle' version '1.0.3'
-}
+apply plugin: 'java'
 
+apply plugin: 'de.undercouch.download'
 apply plugin: 'forge'
-apply plugin: 'maven-publish'
 
-import org.ajoberstar.grgit.Grgit
-
-def repo = Grgit.open(project.file('.'))
-project.ext.gitHash = repo.log().find().abbreviatedId
-def branchname = repo.branch.getCurrent().fullName
-if (branchname.contains('HEAD')) {
-    branchname = System.getenv("GIT_BRANCH")
+task wrapper(type: Wrapper) {
+	gradleVersion = gradle_version
 }
-branchname = branchname.substring(branchname.lastIndexOf('/') + 1)
 
-boolean dev = System.getenv("RELEASE") == null || System.getenv("RELEASE").equalsIgnoreCase("false")
+ext {
+	git = Grgit.open(project.projectDir)
+	
+	try {
+		revision = git.describe().toString().trim()
+	} catch (Throwable err) {
+		println 'Unable to describe anything; creating a default release...'
+		
+		// be sure there is a HEAD to tag
+		git.add(patterns: ['.'], update: true)
+		git.commit(message: 'Initial commit')
+		
+		// create something that can be described
+		git.tag.add {
+			name = 'v0.1'
+			message = 'Hello World!'
+			annotate = true
+		}
+		
+		// be sure the version is set afterwards
+		revision = git.describe().toString().trim()
+	}
+}
 
-ext.buildnumber = 0
-project.buildnumber = System.getenv('BUILD_NUMBER') == null ? "CUSTOM" : System.getenv('BUILD_NUMBER')
-
-version = dev ? "${mod_version}-${buildnumber}-${project.ext.gitHash}" : "${mod_version}.${buildnumber}"
-group = "us.drullk.ThermalSmeltery" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "ThermalSmeltery"
+task setupWorkspace(type: Download, dependsOn: setupDecompWorkspace) {
+	def forgeArchive = project.file('forge.zip')
+	
+	src 'http://files.minecraftforge.net/maven/net/minecraftforge/forge/' + forge_version + '/forge-' + forge_version + '-src.zip'
+	dest forgeArchive
+	
+	doLast {
+		project.copy {
+			from zipTree(forgeArchive)
+			into 'forge'
+		}
+		
+		project.file('forge/eclipse').renameTo(project.file('eclipse'))
+		
+		project.file('forge.zip').delete()
+		project.file('forge').deleteDir()
+	}
+}
 
 minecraft {
-    version = "${minecraft_version}-${forge_version}"
-    runDir = "run"
-
-    replaceIn "ThermalSmeltery.java"
-    replace "@VERSION@", project.version
+	version = forge_version
+	runDir = 'eclipse'
 }
 
-configurations {
-    shade
-    compile.extendsFrom shade
-    compile.extendsFrom exportedCompile
-}
-
-repositories {
-    maven {
-        name 'Chicken Bones Repo'
-        url "http://chickenbones.net/maven/"
-    }
-
-    maven {
-        name 'Prof Mobius Repo'
-        url "http://mobiusstrip.eu/maven"
-    }
-
-    maven {
-        name 'DVS1 Maven FS'
-        url "http://dvs1.progwml6.com/files/maven"
-    }
-
-    maven {
-        name 'tterrag Maven'
-        url "http://maven.tterrag.com"
-    }
-
-    ivy {
-        name "CoFHCore"
-        artifactPattern 'http://addons-origin.cursecdn.com/files/2272/735/[module]-[revision].[ext]'
-    }
-    ivy {
-        name "ThermalDynamics"
-        artifactPattern "http://addons-origin.cursecdn.com/files/2246/951/[module]-[revision].[ext]"
-    }
-    ivy {
-        name "ThermalExpansion"
-        artifactPattern "http://addons-origin.cursecdn.com/files/2272/732/[module]-[revision].[ext]"
-    }
-    ivy {
-        name "ThermalFoundation"
-        artifactPattern "http://addons-origin.cursecdn.com/files/2272/738/[module]-[revision].[ext]"
-    }
-}
+version = revision
+group = mod_group
+archivesBaseName = mod_id
 
 dependencies {
-    compile "codechicken:CodeChickenLib:${minecraft_version}-${ccl_version}:dev"
-    compile "codechicken:CodeChickenCore:${minecraft_version}-${ccc_version}:dev"
-    compile "codechicken:NotEnoughItems:${minecraft_version}-${nei_version}:dev"
+	if (project.file('lib').exists()) {
+		compile fileTree(dir: 'lib', include: '*.jar')
+	}
+}
 
-
-    shade ("team.chisel.ctmlib:CTMLib:${ctmlib_version}") {
-        transitive = false
-    }
-    compile ("com.enderio.core:EnderCore:$minecraft_version-$endercore_version:dev")
-
-    compile "mantle:Mantle:$minecraft_version-$mantle_version:deobf"
-    compile "tconstruct:TConstruct:$minecraft_version-$tconstruct_version:deobf"
-    compile "mcp.mobius.waila:Waila:${waila_version}_$minecraft_version:dev"
-    compile ("com.enderio:EnderIO:$minecraft_version-$enderio_version:dev") {
-        transitive = false
-    }
-
-    compile group: 'cofh', name: 'CoFHCore', version: "[$minecraft_version]$cofhcore_version-dev", ext: 'jar'
-    compile group: 'cofh', name: 'ThermalDynamics', version: "[$minecraft_version]$thermaldynamics_version-dev", ext: 'jar'
-    compile group: 'cofh', name: 'ThermalExpansion', version: "[$minecraft_version]$thermalexpansion_version-dev", ext: 'jar'
-    compile group: 'cofh', name: 'ThermalFoundation', version: "[$minecraft_version]$thermalfoundation_version-dev", ext: 'jar'
+build {
+	doLast {
+		project.file('release').deleteDir()
+		project.file('build/libs').renameTo(project.file('release'))
+		project.file('build/tmp/recompSrc').renameTo(project.file('minecraftSrc'))
+	}
 }
 
 processResources {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-
-        // replace version and mcversion
-        expand 'version': project.version, 'mcversion': project.minecraft.version
-    }
-
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
+	exclude '**/*.db'
 }
 
-jar {
-    configurations.shade.each { dep ->
-        from(project.zipTree(dep)){
-            exclude 'META-INF', 'META-INF/**', '*.info'
-        }
-    }
-
-    //manifest {
-    //    attributes 'FMLAT': 'chisel_compile_at.cfg'
-    //}
+task devJar(type: Jar) {
+	from sourceSets.main.output
+	classifier = 'dev'
 }
 
-// Create deobf dev jars
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'deobf'
-}
-
-// Create API jar with sources and compiled files
-task apiJar(type: Jar) {
-    from sourceSets.main.allSource
-    from sourceSets.main.output
-    include 'team/chisel/api/**/*'
-    classifier = 'api'
-}
-
-// Create source attachment for dev jar
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    classifier = 'sources'
+task srcJar(type: Jar) {
+	from sourceSets.main.allJava
+	classifier = 'src'
 }
 
 artifacts {
-    archives deobfJar
-    archives sourcesJar
-    //archives apiJar //Absolutely none
+	archives devJar, srcJar
 }
 
-publishing {
-    tasks.publish.dependsOn 'build'
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-            artifact deobfJar
-            artifact sourcesJar
-            //artifact apiJar
-        }
-    }
+def filteredSrc = project.file("$buildDir/filtered")
 
-    repositories {
-        if (project.hasProperty('mavendir')) {
-            maven { url mavendir }
-        }
-    }
+sourceSets {
+	filtered {
+		java {
+			srcDir filteredSrc
+		}
+	}
 }
 
-println('Changelog:\n' + getChangelogText())
+compileJava.source = sourceSets.filtered.java
 
-String getChangelogText() {
-    def changelogFile = file('changelog.txt')
-    String str = ''
-    int lineCount = 0
-    boolean done = false
-    changelogFile.eachLine {
-        if (done || it == null) {
-            return
-        }
-        if (it.size() > 1) {
-            def temp = it
-            if (lineCount == 0) {
-                temp = "Chisel ${version}"
-                temp = "<h2>$temp</h2>"
-            } else if (it.startsWith('-')) {
-                temp = "&nbsp;&nbsp;&nbsp;$temp"
-            } else {
-                temp = "<h4>$temp</h4>"
-            }
-            str += "$temp<br/>"
-            lineCount++
-            return
-        } else {
-            done = true
-        }
-    }
-    return str
+task processVersion(type: Copy) {
+	from sourceSets.main.java
+	into filteredSrc
+	expand(version: project.version)
 }
 
-tasks.curseforge.dependsOn 'reobf'
-tasks.curseforge.enabled = !dev && project.hasProperty('drullkus_curseforge_key')
+compileJava.dependsOn processVersion
 
-curseforge {
-    if (project.hasProperty('drullkus_curseforge_key')) {
-        apiKey = project.drullkus_curseforge_key
-    }
-
-    project {
-        id = project.projectId
-        changelog = System.getenv('CHANGELOG') == null || System.getenv('CHANGELOG').equals('none') ? getChangelogText() : System.getenv('CHANGELOG')
-        changelogType = 'html'
-        releaseType = 'release'
-        relations {
-            requiredLibrary 'tinkers-construct'
-            requiredLibrary 'mantle'
-            optionalLibrary 'thermalexpansion'
-            optionalLibrary 'ender-io'
-        }
-        mainArtifact(jar) {
-            displayName = "Thermal Smeltery - ${version}"
-        }
-        addArtifact deobfJar
-        addArtifact sourcesJar
-        //addArtifact(apiJar) {
-        //    relations {}
-        //}
-    }
-}
-
-idea { module { inheritOutputDirs = true } }
+// be sure the filtered source is removed to prevent its source from colliding w/ the main workspace
+// execution by finalizedBy allows removal even if the build fails, preventing more crashes from the previously erroneous source
+compileJava.finalizedBy cleanProcessVersion

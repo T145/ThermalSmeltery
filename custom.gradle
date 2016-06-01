@@ -1,0 +1,49 @@
+// put all custom methods for build manipulation and what not in here
+// you can simply run `gradle -b custom.gradle hello` to test if everything is working
+
+buildscript {
+	repositories {
+		mavenCentral()
+		
+		maven {
+			name 'forge'
+			url 'http://files.minecraftforge.net/maven'
+		}
+		
+		maven {
+			name 'sonatype'
+			url 'https://oss.sonatype.org/content/repositories/snapshots/'
+		}
+		
+		maven {
+			url 'https://plugins.gradle.org/m2/'
+		}
+	}
+	
+	dependencies {
+		classpath 'de.undercouch:gradle-download-task:3.0.0'
+		classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+		classpath 'org.ajoberstar:grgit:1.4.1'
+	}
+}
+
+apply plugin: 'de.undercouch.download'
+apply plugin: 'forge'
+
+task getDependencies(type: Download) {
+	def lib = new File(project.projectDir, 'lib')
+	
+	if (!lib.exists()) {
+		lib.mkdirs()
+	}
+	
+	src ([
+		// ThermalExpansion
+		'http://minecraft.curseforge.com/projects/thermal-foundation/files/2300430/download',
+		'http://minecraft.curseforge.com/projects/thermalexpansion/files/2282513/download',
+		'http://minecraft.curseforge.com/projects/cofhcore/files/2283119/download'
+	])
+	
+	dest lib
+	overwrite true
+}

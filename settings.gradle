@@ -1,1 +1,2 @@
-rootProject.name = 'ThermalSmeltery'
+// put all of the settings for your Gradle project here
+// for more info, check out this for reference: https://docs.gradle.org/current/dsl/org.gradle.api.initialization.Settings.html
