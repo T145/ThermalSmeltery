@@ -1,5 +1,5 @@
-# ForgeWorkspace
-A custom workspace for MinecraftForge
+# ThermalSmeltery (Redux)
+A small mod that adds the ability to smelt metals to their correspondant TinkersConstruct molten version in the ThermalExpansion [Magma Crucible](http://teamcofh.com/docs/thermal-expansion/machines/magma-crucible/)!
 
 ---
 **_Table of Contents_**
