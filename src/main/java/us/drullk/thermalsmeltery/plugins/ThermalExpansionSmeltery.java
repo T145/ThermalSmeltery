@@ -10,53 +10,41 @@ import net.minecraftforge.fluids.FluidStack;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.LiquidCasting;
+import us.drullk.thermalsmeltery.ThermalSmeltery;
 import us.drullk.thermalsmeltery.config.TSmeltConfig;
-import us.drullk.thermalsmeltery.lib.LibMisc;
 import us.drullk.thermalsmeltery.lib.MachineRecipeRegistry;
 import us.drullk.thermalsmeltery.lib.TE4Helper;
 import us.drullk.thermalsmeltery.network.PacketThermalSmeltery;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
-@ObjectHolder(LibMisc.MOD_ID)
+@ObjectHolder(ThermalSmeltery.MODID)
 @Pulse(id = "TSmelt TE", description = "Thermal Expansion Integration", modsRequired = "ThermalExpansion")
-public class ThermalExpansionSmeltery
-{
-	ItemStack nullifier;
-
+public class ThermalExpansionSmeltery {
 	@Handler
-	public void preInit(FMLPostInitializationEvent event)
-	{
+	public void preInit(FMLPostInitializationEvent event) {
 		PacketThermalSmeltery.initialize();
 	}
 
 	@Handler
-	public void init(FMLInitializationEvent event) {}
-
-	@Handler
-	public void postInit(FMLPostInitializationEvent event)
-	{
+	public void postInit(FMLPostInitializationEvent event) {
 		Map<ItemMetaWrapper, FluidStack> smelteryMap = tconstruct.library.crafting.Smeltery.getSmeltingList();
 		Map<ItemMetaWrapper, Integer> tempMap = tconstruct.library.crafting.Smeltery.getTemperatureList();
 
-		for(Map.Entry<ItemMetaWrapper, FluidStack> entry : smelteryMap.entrySet())
-		{
+		for (Map.Entry<ItemMetaWrapper, FluidStack> entry : smelteryMap.entrySet()) {
 			ItemStack input = new ItemStack(entry.getKey().item, 1, entry.getKey().meta);
 			int energy = tempMap.get(entry.getKey()) * TSmeltConfig.multiplier;
 			TE4Helper.addCrucibleRecipe(energy, input, entry.getValue());
 		}
 
 		LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
-		for(CastingRecipe recipe : tableCasting.getCastingRecipes())
-		{
+		for (CastingRecipe recipe : tableCasting.getCastingRecipes()) {
 			MachineRecipeRegistry.registerStampingRecipe(tableCasting, recipe);
 			MachineRecipeRegistry.registerIngotRecipe(recipe);
 		}
 
 		LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
-		for(CastingRecipe recipe : basinCasting.getCastingRecipes())
-		{
+		for (CastingRecipe recipe : basinCasting.getCastingRecipes()) {
 			MachineRecipeRegistry.registerBlockRecipe(recipe);
 		}
 	}

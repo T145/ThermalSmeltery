@@ -14,13 +14,11 @@ import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import us.drullk.thermalsmeltery.ThermalSmeltery;
 import us.drullk.thermalsmeltery.config.TSmeltConfig;
-import us.drullk.thermalsmeltery.lib.LibMisc;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
-@ObjectHolder(LibMisc.MOD_ID)
+@ObjectHolder(ThermalSmeltery.MODID)
 @Pulse(id = "TSmelt TCon Smeltery", description = "Tinkers Construct's Smeltery Integration", modsRequired = "TConstruct")
 public class TinkersSmeltery {
 	public static final String CASTING_BASIN = "castingTable";
@@ -33,35 +31,28 @@ public class TinkersSmeltery {
 			ItemStack ingotcast = new ItemStack(TinkerSmeltery.metalPattern, 1, 0);
 			LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
 			LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
+
 			if (TSmeltConfig.tConYelloriumCasting && FluidRegistry.getFluid("yellorium") != null) {
-				//Yellorium Casting
-				//Ingot
 				tableCasting.addCastingRecipe(new ItemStack(GameRegistry.findItem("BigReactors", "BRIngot"), 1, 0), new FluidStack(FluidRegistry.getFluid("yellorium"), 1000), ingotcast, 50);
-				//Basin
 				basinCasting.addCastingRecipe(new ItemStack(GameRegistry.findBlock("BigReactors", "BRMetalBlock"), 1, 0), new FluidStack(FluidRegistry.getFluid("yellorium"), 9000), 450);
 			}
 
 			if (TSmeltConfig.tConSteelRecipe && FluidRegistry.getFluid("coal") != null) {
-				//Steel Alloying
-				Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(FluidRegistry.getFluid("coal"), 200),
-					new FluidStack(TinkerSmeltery.moltenIronFluid, TConstruct.ingotLiquidValue));
+				Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(FluidRegistry.getFluid("coal"), 200), new FluidStack(TinkerSmeltery.moltenIronFluid, TConstruct.ingotLiquidValue));
 			}
 
 			OreDictionary.registerOre(CASTING_BASIN, new ItemStack(TinkerSmeltery.searedBlock, 1, 2));
 			OreDictionary.registerOre(CASTING_BASIN, new ItemStack(TinkerSmeltery.searedBlockNether, 1, 2));
 			OreDictionary.registerOre(SMELTERY_BRICK, new ItemStack(TinkerSmeltery.smeltery, 1, 2));
 			OreDictionary.registerOre(SMELTERY_BRICK, new ItemStack(TinkerSmeltery.smelteryNether, 1, 2));
+
 			for (int i = 0; i < 14; i++) {
 				OreDictionary.registerOre(TOOL_FORGE, new ItemStack(TinkerTools.toolForge, 1, i));
 			}
+
 			OreDictionary.registerOre(TOOL_FORGE, new ItemStack(TinkerTools.craftingSlabWood, 1, 5));
-		}
-		else {
+		} else {
 			ThermalSmeltery.logger.warn("Tinker's Smeltery is disabled, Adding alloy mixing and casting disabled.");
 		}
-	}
-
-	@Handler
-	public void postInit(FMLPostInitializationEvent event) {
 	}
 }

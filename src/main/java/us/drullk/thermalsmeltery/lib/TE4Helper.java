@@ -5,21 +5,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.common.event.FMLInterModComms;
 
-public class TE4Helper
-{
-
-	public static void addPulverizerRecipe(int energy, ItemStack input, ItemStack primaryOutput)
-	{
+public class TE4Helper {
+	public static void addPulverizerRecipe(int energy, ItemStack input, ItemStack primaryOutput) {
 		addPulveriserRecipe(energy, input, primaryOutput, null, 0);
 	}
 
-	public static void addPulverizerRecipe(int energy, ItemStack input, ItemStack primaryOutput, ItemStack secondaryOutput)
-	{
+	public static void addPulverizerRecipe(int energy, ItemStack input, ItemStack primaryOutput, ItemStack secondaryOutput) {
 		addPulveriserRecipe(energy, input, primaryOutput, secondaryOutput, 100);
 	}
 
-	public static void addPulveriserRecipe(int energy, ItemStack input, ItemStack output, ItemStack bonus, int chance)
-	{
+	public static void addPulveriserRecipe(int energy, ItemStack input, ItemStack output, ItemStack bonus, int chance) {
 		NBTTagCompound data = new NBTTagCompound();
 
 		data.setInteger("energy", energy);
@@ -32,8 +27,7 @@ public class TE4Helper
 		output.writeToNBT(outputCompound);
 		data.setTag("primaryOutput", outputCompound);
 
-		if(bonus != null)
-		{
+		if (bonus != null) {
 			NBTTagCompound outputCompound2 = new NBTTagCompound();
 			bonus.writeToNBT(outputCompound2);
 			data.setTag("secondaryOutput", outputCompound2);
@@ -44,10 +38,8 @@ public class TE4Helper
 		FMLInterModComms.sendMessage("ThermalExpansion", "PulverizerRecipe", data);
 	}
 
-	public static void addCrucibleRecipe(int energy, ItemStack input, FluidStack output)
-	{
-		if(input == null || output == null)
-		{
+	public static void addCrucibleRecipe(int energy, ItemStack input, FluidStack output) {
+		if (input == null || output == null) {
 			return;
 		}
 
