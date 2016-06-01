@@ -111,8 +111,7 @@ public class EnderIOSmeltery {
 						tableCasting.addCastingRecipe(OreDictionary.getOres("ingot" + fluidNames[c]).get(0), new FluidStack(fluids[c], TConstruct.ingotLiquidValue), ingotcast, 50);
 
 						ThermalSmeltery.logger.info("Added block" + fluidNames[c] + " to TCon Casting Table");
-					}
-					else {
+					} else {
 						ThermalSmeltery.logger.info("Skipping registration of casting ingot" + fluidNames[c]);
 					}
 
@@ -120,8 +119,7 @@ public class EnderIOSmeltery {
 						basinCasting.addCastingRecipe(OreDictionary.getOres("block" + fluidNames[c]).get(0), new FluidStack(fluids[c], TConstruct.blockLiquidValue), 150);
 
 						ThermalSmeltery.logger.info("Added block" + fluidNames[c] + " to TCon Casting Basin");
-					}
-					else {
+					} else {
 						ThermalSmeltery.logger.info("Skipping registration of casting block" + fluidNames[c]);
 					}
 
@@ -148,7 +146,7 @@ public class EnderIOSmeltery {
 			}
 
 			if (TSmeltConfig.EIORedstoneAlloyCasting && Loader.isModLoaded("EnderIO")) {
-				tableCasting.addCastingRecipe(new ItemStack(GameRegistry.findItem("EnderIO", "itemAlloy"), 1, 3) /*Redstone Alloy*/, moltenRedstoneDust, itemSiliconStack, true, 50);
+				tableCasting.addCastingRecipe(new ItemStack(GameRegistry.findItem("EnderIO", "itemAlloy"), 1, 3), moltenRedstoneDust, itemSiliconStack, true, 50);
 			}
 
 			if (TSmeltConfig.EIOConductiveIronRecipe && Loader.isModLoaded("EnderIO")) {

@@ -16,9 +16,7 @@ import us.drullk.thermalsmeltery.ThermalSmeltery;
 import us.drullk.thermalsmeltery.config.TSmeltConfig;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
-@ObjectHolder(ThermalSmeltery.MODID)
 @Pulse(id = "TSmelt TCon Smeltery", description = "Tinkers Construct's Smeltery Integration", modsRequired = "TConstruct")
 public class TinkersSmeltery {
 	public static final String CASTING_BASIN = "castingTable";

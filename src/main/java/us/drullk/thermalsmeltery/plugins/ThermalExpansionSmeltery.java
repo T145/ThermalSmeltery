@@ -10,15 +10,12 @@ import net.minecraftforge.fluids.FluidStack;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.LiquidCasting;
-import us.drullk.thermalsmeltery.ThermalSmeltery;
 import us.drullk.thermalsmeltery.config.TSmeltConfig;
 import us.drullk.thermalsmeltery.lib.MachineRecipeRegistry;
 import us.drullk.thermalsmeltery.lib.TE4Helper;
 import us.drullk.thermalsmeltery.network.PacketThermalSmeltery;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
-@ObjectHolder(ThermalSmeltery.MODID)
 @Pulse(id = "TSmelt TE", description = "Thermal Expansion Integration", modsRequired = "ThermalExpansion")
 public class ThermalExpansionSmeltery {
 	@Handler
