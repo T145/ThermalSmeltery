@@ -107,20 +107,23 @@ public class EnderIOSmeltery {
 
 			if (TSmeltConfig.EIOAddMetalCasting) {
 				for (int c = 0; c < fluidNames.length; c++) {
-					if (OreDictionary.doesOreNameExist("ingot" + fluidNames[c])) {
-						tableCasting.addCastingRecipe(OreDictionary.getOres("ingot" + fluidNames[c]).get(0), new FluidStack(fluids[c], TConstruct.ingotLiquidValue), ingotcast, 50);
+					String oredictIngot = "ingot" + fluidNames[c];
+					String oredictBlock = "block" + fluidNames[c];
 
-						ThermalSmeltery.logger.info("Added block" + fluidNames[c] + " to TCon Casting Table");
+					if (OreDictionary.doesOreNameExist(oredictIngot)) {
+						tableCasting.addCastingRecipe(OreDictionary.getOres(oredictIngot).get(0), new FluidStack(fluids[c], TConstruct.ingotLiquidValue), ingotcast, 50);
+
+						ThermalSmeltery.logger.info("Added " + oredictIngot + " to TCon Casting Table");
 					} else {
-						ThermalSmeltery.logger.info("Skipping registration of casting ingot" + fluidNames[c]);
+						ThermalSmeltery.logger.info("Skipping registration of casting " + oredictIngot);
 					}
 
-					if (OreDictionary.doesOreNameExist("block" + fluidNames[c])) {
-						basinCasting.addCastingRecipe(OreDictionary.getOres("block" + fluidNames[c]).get(0), new FluidStack(fluids[c], TConstruct.blockLiquidValue), 150);
+					if (OreDictionary.doesOreNameExist(oredictBlock)) {
+						basinCasting.addCastingRecipe(OreDictionary.getOres(oredictBlock).get(0), new FluidStack(fluids[c], TConstruct.blockLiquidValue), 150);
 
-						ThermalSmeltery.logger.info("Added block" + fluidNames[c] + " to TCon Casting Basin");
+						ThermalSmeltery.logger.info("Added " + oredictBlock + " to TCon Casting Basin");
 					} else {
-						ThermalSmeltery.logger.info("Skipping registration of casting block" + fluidNames[c]);
+						ThermalSmeltery.logger.info("Skipping registration of casting " + oredictBlock);
 					}
 
 					for (int i = 0; i < orePrefix.length; i++) {
