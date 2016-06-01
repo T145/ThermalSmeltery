@@ -21,7 +21,7 @@ import drullkus.thermalsmeltery.plugins.TinkersSmeltery;
 public class ThermalSmeltery {
 	public static final String MODID = "ThermalSmeltery";
 	public static final String NAME = "Thermal Smeltery";
-	public static final String DEPENDENCIES = "after:BigReactors;required-after:TConstruct;after:ThermalExpansion";
+	public static final String DEPENDENCIES = "after:ExtraTiC;after:BigReactors;required-after:TConstruct;required-after:ThermalExpansion";
 
 	public static final Logger logger = LogManager.getLogger(MODID);
 
