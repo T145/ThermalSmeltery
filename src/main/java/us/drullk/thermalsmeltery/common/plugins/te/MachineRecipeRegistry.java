@@ -1,5 +1,13 @@
 package us.drullk.thermalsmeltery.common.plugins.te;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.oredict.OreDictionary;
@@ -8,8 +16,6 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.plugins.gears.TinkerGears;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.weaponry.TinkerWeaponry;
-
-import java.util.*;
 
 public class MachineRecipeRegistry
 {

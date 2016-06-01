@@ -1,8 +1,7 @@
 package us.drullk.thermalsmeltery.common.plugins.eio.smeltery;
 
-import us.drullk.thermalsmeltery.ThermalSmeltery;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,8 +16,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidFinite;
-
-import java.util.List;
+import us.drullk.thermalsmeltery.ThermalSmeltery;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class FilledBucket extends ItemBucket {
 

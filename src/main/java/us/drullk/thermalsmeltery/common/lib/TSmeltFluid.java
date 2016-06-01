@@ -1,13 +1,12 @@
 package us.drullk.thermalsmeltery.common.lib;
 
-import us.drullk.thermalsmeltery.ThermalSmeltery;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TSmeltFluid extends BlockFluidClassic
 {
@@ -30,7 +29,7 @@ public class TSmeltFluid extends BlockFluidClassic
 	{
 		super(fluid, material);
 		this.texture = texture;
-		this.setCreativeTab(ThermalSmeltery.itemTab);
+		//this.setCreativeTab(ThermalSmeltery.itemTab);
 	}
 
 	public TSmeltFluid(Fluid fluid, Material material, String texture, boolean alpha)

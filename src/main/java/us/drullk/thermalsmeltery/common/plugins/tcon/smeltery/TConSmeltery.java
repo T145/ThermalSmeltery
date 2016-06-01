@@ -1,13 +1,5 @@
 package us.drullk.thermalsmeltery.common.plugins.tcon.smeltery;
 
-import us.drullk.thermalsmeltery.ThermalSmeltery;
-import us.drullk.thermalsmeltery.common.core.handler.TSmeltConfig;
-import us.drullk.thermalsmeltery.common.lib.LibMisc;
-
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import net.minecraft.item.ItemStack;
@@ -16,16 +8,20 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
+import us.drullk.thermalsmeltery.ThermalSmeltery;
+import us.drullk.thermalsmeltery.common.config.TSmeltConfig;
+import us.drullk.thermalsmeltery.common.lib.LibMisc;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(LibMisc.MOD_ID)
-@Pulse(id = "TSmelt TCon Smeltery",
-	description = "Tinkers Construct's Smeltery Integration",
-	modsRequired = "TConstruct")
+@Pulse(id = "TSmelt TCon Smeltery", description = "Tinkers Construct's Smeltery Integration", modsRequired = "TConstruct")
 public class TConSmeltery {
 	public static String CASTING_BASIN = "castingTable";
 	public static String SMELTERY_BRICK = "smelteryBrick";

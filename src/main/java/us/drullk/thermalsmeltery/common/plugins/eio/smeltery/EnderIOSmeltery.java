@@ -1,11 +1,5 @@
 package us.drullk.thermalsmeltery.common.plugins.eio.smeltery;
 
-import us.drullk.thermalsmeltery.ThermalSmeltery;
-import us.drullk.thermalsmeltery.common.core.handler.TSmeltConfig;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
 import mantle.blocks.BlockUtils;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
@@ -24,6 +18,12 @@ import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
+import us.drullk.thermalsmeltery.ThermalSmeltery;
+import us.drullk.thermalsmeltery.common.config.TSmeltConfig;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 //@GameRegistry.ObjectHolder(LibMisc.MOD_ID)
 @Pulse(id = "TSmelt EIO Smeltery",

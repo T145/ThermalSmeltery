@@ -1,13 +1,13 @@
 package us.drullk.thermalsmeltery.common.network;
 
+import java.io.IOException;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import cofh.api.tileentity.IRedstoneControl;
 import cofh.core.network.PacketCoFHBase;
 import cofh.core.network.PacketHandler;
 import cofh.lib.gui.container.IAugmentableContainer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-
-import java.io.IOException;
 
 public class PacketThermalSmeltery extends PacketCoFHBase
 {

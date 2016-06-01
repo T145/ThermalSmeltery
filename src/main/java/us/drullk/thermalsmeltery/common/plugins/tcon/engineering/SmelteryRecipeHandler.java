@@ -1,13 +1,5 @@
 package us.drullk.thermalsmeltery.common.plugins.tcon.engineering;
 
-import mantle.utils.ItemMetaWrapper;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import us.drullk.thermalsmeltery.common.core.handler.TSmeltConfig;
-import us.drullk.thermalsmeltery.common.plugins.te.TE4Helper;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class SmelteryRecipeHandler
 {

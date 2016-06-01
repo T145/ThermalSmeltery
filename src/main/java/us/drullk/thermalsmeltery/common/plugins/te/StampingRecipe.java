@@ -4,7 +4,6 @@ import net.minecraft.item.ItemStack;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.smeltery.TinkerSmeltery;
-import us.drullk.thermalsmeltery.common.plugins.te.MachineRecipeRegistry;
 
 public class StampingRecipe
 {

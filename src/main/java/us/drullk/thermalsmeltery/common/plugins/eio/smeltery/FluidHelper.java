@@ -1,8 +1,5 @@
 package us.drullk.thermalsmeltery.common.plugins.eio.smeltery;
 
-import us.drullk.thermalsmeltery.ThermalSmeltery;
-import us.drullk.thermalsmeltery.common.lib.TSmeltFluid;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -10,6 +7,9 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import us.drullk.thermalsmeltery.ThermalSmeltery;
+import us.drullk.thermalsmeltery.common.lib.TSmeltFluid;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class FluidHelper {
 
