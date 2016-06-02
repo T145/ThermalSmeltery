@@ -86,86 +86,82 @@ public class PluginEnderIO {
 
 	@Handler
 	public void init(FMLInitializationEvent event) {
-		if (TConstruct.pulsar.isPulseLoaded("Tinkers' Smeltery")) {
-			moltenRedstoneDust = new FluidStack(FluidRegistry.getFluid("redstone"), 100);
-			moltenGlowstoneDust = new FluidStack(FluidRegistry.getFluid("glowstone"), 250);
-			moltenEnder = new FluidStack(FluidRegistry.getFluid("ender"), 250);
-			moltenIronIngot = new FluidStack(FluidRegistry.getFluid("iron.molten"), TConstruct.ingotLiquidValue);
-			moltenGoldIngot = new FluidStack(FluidRegistry.getFluid("gold.molten"), TConstruct.ingotLiquidValue);
-			moltenSteelIngot = new FluidStack(FluidRegistry.getFluid("steel.molten"), TConstruct.ingotLiquidValue);
-			itemSiliconStack = new ItemStack(GameRegistry.findItem("EnderIO", "itemMaterial"), 1, 0);
+		moltenRedstoneDust = new FluidStack(FluidRegistry.getFluid("redstone"), 100);
+		moltenGlowstoneDust = new FluidStack(FluidRegistry.getFluid("glowstone"), 250);
+		moltenEnder = new FluidStack(FluidRegistry.getFluid("ender"), 250);
+		moltenIronIngot = new FluidStack(FluidRegistry.getFluid("iron.molten"), TConstruct.ingotLiquidValue);
+		moltenGoldIngot = new FluidStack(FluidRegistry.getFluid("gold.molten"), TConstruct.ingotLiquidValue);
+		moltenSteelIngot = new FluidStack(FluidRegistry.getFluid("steel.molten"), TConstruct.ingotLiquidValue);
+		itemSiliconStack = new ItemStack(GameRegistry.findItem("EnderIO", "itemMaterial"), 1, 0);
 
-			LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
-			LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
+		LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
+		LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
 
-			if (ModConfig.EIOAddMetalCasting) {
-				String[] fluidNames = new String[] { "EnergeticAlloy", "PhasedGold", "ConductiveIron", "PhasedIron", "DarkSteel" };
-				String[] orePrefix = new String[] { "block", "nugget", "ingot" };
-				int[] oreAmounts = new int[] { TConstruct.blockLiquidValue, TConstruct.nuggetLiquidValue, TConstruct.ingotLiquidValue };
+		if (ModConfig.EIOAddMetalCasting) {
+			String[] fluidNames = new String[] { "EnergeticAlloy", "PhasedGold", "ConductiveIron", "PhasedIron", "DarkSteel" };
+			String[] orePrefix = new String[] { "block", "nugget", "ingot" };
+			int[] oreAmounts = new int[] { TConstruct.blockLiquidValue, TConstruct.nuggetLiquidValue, TConstruct.ingotLiquidValue };
 
-				for (int c = 0; c < fluidNames.length; c++) {
-					String oredictIngot = "ingot" + fluidNames[c];
-					String oredictBlock = "block" + fluidNames[c];
+			for (int c = 0; c < fluidNames.length; c++) {
+				String oredictIngot = "ingot" + fluidNames[c];
+				String oredictBlock = "block" + fluidNames[c];
 
-					if (OreDictionary.doesOreNameExist(oredictIngot)) {
-						tableCasting.addCastingRecipe(OreDictionary.getOres(oredictIngot).get(0), new FluidStack(fluids[c], TConstruct.ingotLiquidValue), new ItemStack(TinkerSmeltery.metalPattern, 1, 0), 50);
+				if (OreDictionary.doesOreNameExist(oredictIngot)) {
+					tableCasting.addCastingRecipe(OreDictionary.getOres(oredictIngot).get(0), new FluidStack(fluids[c], TConstruct.ingotLiquidValue), new ItemStack(TinkerSmeltery.metalPattern, 1, 0), 50);
 
-						ThermalSmeltery.logger.info("Added " + oredictIngot + " to TCon Casting Table");
-					} else {
-						ThermalSmeltery.logger.info("Skipping registration of casting " + oredictIngot);
+					ThermalSmeltery.logger.info("Added " + oredictIngot + " to TCon Casting Table");
+				} else {
+					ThermalSmeltery.logger.info("Skipping registration of casting " + oredictIngot);
+				}
+
+				if (OreDictionary.doesOreNameExist(oredictBlock)) {
+					basinCasting.addCastingRecipe(OreDictionary.getOres(oredictBlock).get(0), new FluidStack(fluids[c], TConstruct.blockLiquidValue), 150);
+
+					ThermalSmeltery.logger.info("Added " + oredictBlock + " to TCon Casting Basin");
+				} else {
+					ThermalSmeltery.logger.info("Skipping registration of casting " + oredictBlock);
+				}
+
+				for (int i = 0; i < orePrefix.length; i++) {
+					if (OreDictionary.doesOreNameExist(orePrefix[i] + fluidNames[c])) {
+						Smeltery.addDictionaryMelting(orePrefix[i] + fluidNames[c], tconstruct.library.crafting.FluidType.getFluidType(fluids[c]), 0, oreAmounts[i]);
 					}
-
-					if (OreDictionary.doesOreNameExist(oredictBlock)) {
-						basinCasting.addCastingRecipe(OreDictionary.getOres(oredictBlock).get(0), new FluidStack(fluids[c], TConstruct.blockLiquidValue), 150);
-
-						ThermalSmeltery.logger.info("Added " + oredictBlock + " to TCon Casting Basin");
-					} else {
-						ThermalSmeltery.logger.info("Skipping registration of casting " + oredictBlock);
-					}
-
-					for (int i = 0; i < orePrefix.length; i++) {
-						if (OreDictionary.doesOreNameExist(orePrefix[i] + fluidNames[c])) {
-							Smeltery.addDictionaryMelting(orePrefix[i] + fluidNames[c], tconstruct.library.crafting.FluidType.getFluidType(fluids[c]), 0, oreAmounts[i]);
-						}
-					}
-
-					tableCasting.addCastingRecipe(new ItemStack(GameRegistry.findItem("ThermalSmeltery", "buckets"), 1, c), new FluidStack(fluids[c], 1000), new ItemStack(Items.bucket, 1, 0), true, 50);
 				}
 
-				if (ModConfig.EIOElectricalSteelCasting) {
-					tableCasting.addCastingRecipe(new ItemStack(GameRegistry.findItem("EnderIO", "itemAlloy"), 1, 0), moltenSteelIngot, itemSiliconStack, true, 60);
-				}
-
-				if (ModConfig.EIOEnergeticAlloyRecipe) {
-					Smeltery.addAlloyMixing(new FluidStack(moltenEnergeticFluid, TConstruct.ingotLiquidValue), moltenGoldIngot, moltenRedstoneDust, moltenGlowstoneDust);
-				}
-
-				if (ModConfig.EIOVibrantAlloyRecipe) {
-					Smeltery.addAlloyMixing(new FluidStack(moltenVibrantFluid, TConstruct.ingotLiquidValue), new FluidStack(moltenEnergeticFluid, TConstruct.ingotLiquidValue), moltenEnder);
-				}
-
-				if (ModConfig.EIORedstoneAlloyCasting) {
-					tableCasting.addCastingRecipe(new ItemStack(GameRegistry.findItem("EnderIO", "itemAlloy"), 1, 3), moltenRedstoneDust, itemSiliconStack, true, 50);
-				}
-
-				if (ModConfig.EIOConductiveIronRecipe) {
-					Smeltery.addAlloyMixing(new FluidStack(moltenConductiveIronFluid, TConstruct.ingotLiquidValue), moltenIronIngot, moltenRedstoneDust);
-				}
-
-				if (ModConfig.EIOPulsatingIronRecipe) {
-					Smeltery.addAlloyMixing(new FluidStack(moltenPulsatingIronFluid, TConstruct.ingotLiquidValue), moltenIronIngot, moltenEnder);
-				}
-
-				if (ModConfig.EIODarkSteelRecipe) {
-					Smeltery.addAlloyMixing(new FluidStack(moltenDarkSteelFluid, TConstruct.ingotLiquidValue), moltenSteelIngot, new FluidStack(FluidRegistry.getFluid("obsidian.molten"), TConstruct.ingotLiquidValue * 2));
-				}
-
-				if (ModConfig.EIOSoulariumCasting) {
-					tableCasting.addCastingRecipe(new ItemStack(GameRegistry.findItem("EnderIO", "itemAlloy"), 1, 7), moltenGoldIngot, new ItemStack(Blocks.soul_sand, 1, 0), true, 75);
-				}
+				tableCasting.addCastingRecipe(new ItemStack(GameRegistry.findItem("ThermalSmeltery", "buckets"), 1, c), new FluidStack(fluids[c], 1000), new ItemStack(Items.bucket, 1, 0), true, 50);
 			}
-		} else {
-			ThermalSmeltery.logger.warn("Tinker's Smeltery is disabled; this mod is now worthless.");
+
+			if (ModConfig.EIOElectricalSteelCasting) {
+				tableCasting.addCastingRecipe(new ItemStack(GameRegistry.findItem("EnderIO", "itemAlloy"), 1, 0), moltenSteelIngot, itemSiliconStack, true, 60);
+			}
+
+			if (ModConfig.EIOEnergeticAlloyRecipe) {
+				Smeltery.addAlloyMixing(new FluidStack(moltenEnergeticFluid, TConstruct.ingotLiquidValue), moltenGoldIngot, moltenRedstoneDust, moltenGlowstoneDust);
+			}
+
+			if (ModConfig.EIOVibrantAlloyRecipe) {
+				Smeltery.addAlloyMixing(new FluidStack(moltenVibrantFluid, TConstruct.ingotLiquidValue), new FluidStack(moltenEnergeticFluid, TConstruct.ingotLiquidValue), moltenEnder);
+			}
+
+			if (ModConfig.EIORedstoneAlloyCasting) {
+				tableCasting.addCastingRecipe(new ItemStack(GameRegistry.findItem("EnderIO", "itemAlloy"), 1, 3), moltenRedstoneDust, itemSiliconStack, true, 50);
+			}
+
+			if (ModConfig.EIOConductiveIronRecipe) {
+				Smeltery.addAlloyMixing(new FluidStack(moltenConductiveIronFluid, TConstruct.ingotLiquidValue), moltenIronIngot, moltenRedstoneDust);
+			}
+
+			if (ModConfig.EIOPulsatingIronRecipe) {
+				Smeltery.addAlloyMixing(new FluidStack(moltenPulsatingIronFluid, TConstruct.ingotLiquidValue), moltenIronIngot, moltenEnder);
+			}
+
+			if (ModConfig.EIODarkSteelRecipe) {
+				Smeltery.addAlloyMixing(new FluidStack(moltenDarkSteelFluid, TConstruct.ingotLiquidValue), moltenSteelIngot, new FluidStack(FluidRegistry.getFluid("obsidian.molten"), TConstruct.ingotLiquidValue * 2));
+			}
+
+			if (ModConfig.EIOSoulariumCasting) {
+				tableCasting.addCastingRecipe(new ItemStack(GameRegistry.findItem("EnderIO", "itemAlloy"), 1, 7), moltenGoldIngot, new ItemStack(Blocks.soul_sand, 1, 0), true, 75);
+			}
 		}
 	}
 }

@@ -1,8 +1,7 @@
 package drullkus.thermalsmeltery.config;
 
-import java.io.File;
-
 import net.minecraftforge.common.config.Configuration;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class ModConfig {
 
@@ -21,10 +20,8 @@ public class ModConfig {
 	// Ender IO
 	public static boolean EIOElectricalSteelCasting, EIOEnergeticAlloyRecipe, EIOVibrantAlloyRecipe, EIORedstoneAlloyCasting, EIOConductiveIronRecipe, EIOPulsatingIronRecipe, EIODarkSteelRecipe, EIOSoulariumCasting, EIOAddMetalCasting;
 
-	public static void initProps(File location) {
-		File mainFile = new File(location + "/ThermalSmeltery.cfg");
-
-		Configuration config = new Configuration(mainFile);
+	public static void initProps(FMLPreInitializationEvent event) {
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.addCustomCategoryComment(CATEGORY_TE, "Only used if the Thermal Expansion module is on; do not modify the internal names lightly.");
 		config.load();
 
@@ -32,7 +29,7 @@ public class ModConfig {
 
 		tConSteelRecipe = config.get(CATEGORY_TCONSTRUCT, "Allow Steel to be made in the Smeltery", true, "Only used if the Tinker's construct Smeltery Module is enabled.").getBoolean(true);
 		tConYelloriumCasting = config.get(CATEGORY_TCONSTRUCT, "Allow Yellorium to be casted into the casting table/basin.", true, "Only used if the Tinker's construct Smeltery Module is enabled.").getBoolean(true);
-		tConSmelteryTickFrequency = config.get(CATEGORY_TCONSTRUCT, "How many ticks occur between each smeltery checks for players. Default is " + defaultTick + ". Maximum is " + ModConfig.tickCeiling + ".", defaultTick, "Only used if the Tinker's construct RF Smeltery Module is enabled.").getInt(defaultTick);
+		tConSmelteryTickFrequency = config.get(CATEGORY_TCONSTRUCT, "How many ticks occur between each smeltery checks for players. Default is " + defaultTick + ". Maximum is " + tickCeiling + ".", defaultTick, "Only used if the Tinker's construct RF Smeltery Module is enabled.").getInt(defaultTick);
 
 		EIOElectricalSteelCasting = config.get(CATEGORY_EIO, "Allow Steel to be casted onto Silicon, creating EnderIO's Electrical Steel ingot", true, "Only used if the Tinker's construct Smeltery Module is enabled.").getBoolean(true);
 		EIOEnergeticAlloyRecipe = config.get(CATEGORY_EIO, "Allow Destabilized Redstone, Glowstone, and Molten Gold to be mixed, creating molten Energetic Alloy", true, "Only used if the Tinker's construct Smeltery Module is enabled.").getBoolean(true);
