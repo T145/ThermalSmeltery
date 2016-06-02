@@ -6,16 +6,17 @@ import mantle.pulsar.control.PulseManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import drullkus.thermalsmeltery.config.TSmeltConfig;
-import drullkus.thermalsmeltery.plugins.EnderIOSmeltery;
-import drullkus.thermalsmeltery.plugins.ThermalExpansionSmeltery;
-import drullkus.thermalsmeltery.plugins.TinkersSmeltery;
+import drullkus.thermalsmeltery.config.ModConfig;
+import drullkus.thermalsmeltery.plugins.PluginEnderIO;
+import drullkus.thermalsmeltery.plugins.PluginTConstruct;
+import drullkus.thermalsmeltery.plugins.PluginThermalExpansion;
 
 @Mod(modid = ThermalSmeltery.MODID, name = ThermalSmeltery.NAME, dependencies = ThermalSmeltery.DEPENDENCIES)
 public class ThermalSmeltery {
@@ -32,11 +33,15 @@ public class ThermalSmeltery {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		TSmeltConfig.initProps(event.getModConfigurationDirectory());
+		ModConfig.initProps(event.getModConfigurationDirectory());
 
-		pulsar.registerPulse(new ThermalExpansionSmeltery());
-		pulsar.registerPulse(new TinkersSmeltery());
-		pulsar.registerPulse(new EnderIOSmeltery());
+		pulsar.registerPulse(new PluginThermalExpansion());
+		pulsar.registerPulse(new PluginTConstruct());
+
+		if (Loader.isModLoaded("EnderIO")) {
+			pulsar.registerPulse(new PluginEnderIO());
+		}
+
 		pulsar.preInit(event);
 	}
 

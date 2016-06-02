@@ -4,7 +4,7 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 
-public class TSmeltConfig {
+public class ModConfig {
 
 	public static final String CATEGORY_TE = "Thermal Expansion";
 	public static final String CATEGORY_TCONSTRUCT = "Tinkers Construct";
@@ -32,7 +32,7 @@ public class TSmeltConfig {
 
 		tConSteelRecipe = config.get(CATEGORY_TCONSTRUCT, "Allow Steel to be made in the Smeltery", true, "Only used if the Tinker's construct Smeltery Module is enabled.").getBoolean(true);
 		tConYelloriumCasting = config.get(CATEGORY_TCONSTRUCT, "Allow Yellorium to be casted into the casting table/basin.", true, "Only used if the Tinker's construct Smeltery Module is enabled.").getBoolean(true);
-		tConSmelteryTickFrequency = config.get(CATEGORY_TCONSTRUCT, "How many ticks occur between each smeltery checks for players. Default is " + defaultTick + ". Maximum is " + TSmeltConfig.tickCeiling + ".", defaultTick, "Only used if the Tinker's construct RF Smeltery Module is enabled.").getInt(defaultTick);
+		tConSmelteryTickFrequency = config.get(CATEGORY_TCONSTRUCT, "How many ticks occur between each smeltery checks for players. Default is " + defaultTick + ". Maximum is " + ModConfig.tickCeiling + ".", defaultTick, "Only used if the Tinker's construct RF Smeltery Module is enabled.").getInt(defaultTick);
 
 		EIOElectricalSteelCasting = config.get(CATEGORY_EIO, "Allow Steel to be casted onto Silicon, creating EnderIO's Electrical Steel ingot", true, "Only used if the Tinker's construct Smeltery Module is enabled.").getBoolean(true);
 		EIOEnergeticAlloyRecipe = config.get(CATEGORY_EIO, "Allow Destabilized Redstone, Glowstone, and Molten Gold to be mixed, creating molten Energetic Alloy", true, "Only used if the Tinker's construct Smeltery Module is enabled.").getBoolean(true);
