@@ -19,7 +19,7 @@ import net.minecraftforge.fluids.BlockFluidFinite;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import drullkus.thermalsmeltery.ThermalSmeltery;
-import drullkus.thermalsmeltery.plugins.EnderIOSmeltery;
+import drullkus.thermalsmeltery.plugins.PluginEnderIO;
 
 public class FilledBucket extends ItemBucket {
 	public static final String[] materialNames = new String[] { "EnergeticAlloy", "PhasedGold", "ConductiveIron", "PhasedIron", "DarkSteel" };
@@ -97,16 +97,16 @@ public class FilledBucket extends ItemBucket {
 			return false;
 		} else {
 			try {
-				if (EnderIOSmeltery.fluidBlocks[type] == null) {
+				if (PluginEnderIO.fluidBlocks[type] == null) {
 					return false;
 				}
 
 				int metadata = 0;
-				if (EnderIOSmeltery.fluidBlocks[type] instanceof BlockFluidFinite) {
+				if (PluginEnderIO.fluidBlocks[type] instanceof BlockFluidFinite) {
 					metadata = 7;
 				}
 
-				world.setBlock(clickX, clickY, clickZ, EnderIOSmeltery.fluidBlocks[type], metadata, 3);
+				world.setBlock(clickX, clickY, clickZ, PluginEnderIO.fluidBlocks[type], metadata, 3);
 			} catch (ArrayIndexOutOfBoundsException ex) {
 				ThermalSmeltery.logger.warn("AIOBE occured when placing bucket into world; " + ex + " The perpetrator is " + materialNames[type]);
 				return false;
